@@ -21,12 +21,10 @@ def normalize(x):
     my_copy = copy.deepcopy(x)
     hours = my_copy['hours']
 
-    # Retirar esse if horroroso.
-    # Filtrar os caras que geram esse if antes.
-    if hours[23] == None:
-        my_copy['normalized'] = hours
-        return my_copy
-
     normalized = hours / np.linalg.norm(hours)
     my_copy['normalized'] = normalized
     return my_copy
+
+
+def remove_non_available_data(x):
+    return x['hours'][23] != None

@@ -6,9 +6,11 @@ from matplotlib.font_manager import FontProperties
 load_history = csv.reader(open('../datasets/Load_history.csv'))
 header = next(load_history)
 
-predicate = cool_functions.year_month_day_predicate(2004, 7, 5)
+predicate = cool_functions.year_month_day_predicate(2005, 1, 1)
+
 my_data = list(map(lambda row: cool_functions.raw_row_to_dict(row), load_history))
-my_data_normalized = list(map(lambda x: cool_functions.normalize(x), my_data))
+only_available_data = filter(lambda x: cool_functions.remove_non_available_data(x), my_data)
+my_data_normalized = list(map(lambda x: cool_functions.normalize(x), only_available_data))
 filtered = list(filter(lambda x: predicate(x), my_data_normalized))
 
 
