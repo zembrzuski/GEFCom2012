@@ -1,3 +1,5 @@
+import numpy as np
+import copy
 
 def from_string_to_int(string):
     return int(string.replace(',', '')) if string != '' else None
@@ -13,3 +15,18 @@ def raw_row_to_dict(row):
 
 def year_month_day_predicate(year, month, day):
     return lambda dict_inp: dict_inp['year'] == year and dict_inp['month'] == month and dict_inp['day'] == day
+
+
+def normalize(x):
+    my_copy = copy.deepcopy(x)
+    hours = my_copy['hours']
+
+    # Retirar esse if horroroso.
+    # Filtrar os caras que geram esse if antes.
+    if hours[23] == None:
+        my_copy['normalized'] = hours
+        return my_copy
+
+    normalized = hours / np.linalg.norm(hours)
+    my_copy['normalized'] = normalized
+    return my_copy
